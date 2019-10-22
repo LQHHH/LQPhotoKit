@@ -32,6 +32,7 @@
     LQPhotoKitAlbumViewController *vc = [LQPhotoKitAlbumViewController new];
     vc.delegate                       = self;
     UINavigationController *nav       = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.modalPresentationStyle        = UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
 }
 

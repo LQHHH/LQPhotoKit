@@ -37,10 +37,28 @@
     self.navigationItem.rightBarButtonItem = sureButton;
     
     __weak typeof(self)wself = self;
-//    [[LQPhotoKitManager defaultManager] requestAllImagesWithCompletionBlock:^(NSArray * _Nonnull images) {
-//        [wself.photoModels addObjectsFromArray:images];
-//        [wself.collectionView reloadData];
-//    }];
+    
+    [[LQPhotoKitManager defaultManager]
+     requestAuthorizationWithHandler:^(BOOL authorized) {
+        if (!authorized) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"无法访问相册"
+                                                            message:@"请在设置-隐私-相册中允许访问相册"
+                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+            }]];
+            return;
+        }
+        
+        [wself requestImageList];
+        
+    }];
+}
+
+- (void)requestImageList {
+     __weak typeof(self)wself = self;
     LQPhotoKitManager *manager = [LQPhotoKitManager defaultManager];
     manager.maxChooseImageCount = 5;
     [manager requestAllAssetModelsWithCompletionBlock:^(NSArray<id<LQPhotoKitAssetModel>> * _Nonnull photoModels) {

@@ -43,5 +43,7 @@
 	<string>需要访问您的图库</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要访问您的图库</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

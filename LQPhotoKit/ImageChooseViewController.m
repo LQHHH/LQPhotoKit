@@ -32,6 +32,7 @@
 - (void)clickAction:(UIButton *)sender {
     LQPhotoKitChooseImageViewController *vc = [LQPhotoKitChooseImageViewController new];
     UINavigationController *nav             = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.modalPresentationStyle        = UIModalPresentationFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
     
     __weak typeof(self)wself = self;
